@@ -113,7 +113,7 @@ inc = -I./tools/libantlr3c-3.4/ -I./tools/libantlr3c-3.4/include
 
 #gtest
 
-TARGET = $(exedir)gexport $(exedir)gbuild $(exedir)gserver $(exedir)gserver_backup_scheduler $(exedir)gclient $(exedir)gquery $(exedir)gconsole $(api_java) $(exedir)gadd $(exedir)gsub $(exedir)ghttp $(exedir)gmonitor $(exedir)gshow $(exedir)shutdown $(exedir)ginit $(exedir)gdrop $(testdir)update_test $(testdir)dataset_test
+TARGET = $(exedir)gexport $(exedir)gbuild $(exedir)gserver $(exedir)gserver_backup_scheduler $(exedir)gclient $(exedir)gquery $(exedir)gconsole $(api_java) $(exedir)gadd $(exedir)gsub $(exedir)ghttp $(exedir)gmonitor $(exedir)gshow $(exedir)shutdown $(exedir)ginit $(exedir)gdrop $(testdir)update_test $(testdir)dataset_test $(testdir)kvstore_test
 
 all: $(TARGET)
 	@echo "Compilation ends successfully!"
@@ -170,6 +170,10 @@ $(testdir)update_test: $(lib_antlr) $(objdir)update_test.o $(objfile)
 
 $(testdir)dataset_test: $(lib_antlr) $(objdir)dataset_test.o $(objfile)
 	$(CC) $(EXEFLAG) -o $(testdir)dataset_test $(objdir)dataset_test.o $(objfile) $(library) $(openmp)
+
+$(testdir)kvstore_test: $(lib_antlr) $(objdir)kvstore_test.o $(objfile)
+	$(CC) $(EXEFLAG) -o $(testdir)kvstore_test $(objdir)kvstore_test.o $(objfile) $(library) $(openmp)
+
 #executables end
 
 
@@ -224,6 +228,9 @@ $(objdir)update_test.o: $(testdir)update_test.cpp Database/Database.h Util/Util.
 
 $(objdir)dataset_test.o: $(testdir)dataset_test.cpp Database/Database.h Util/Util.h $(lib_antlr)
 	$(CC) $(CFLAGS) $(testdir)dataset_test.cpp $(inc) -o $(objdir)dataset_test.o $(openmp)
+
+$(objdir)kvstore_test.o: $(testdir)kvstore_test.cpp KVstore/KVstore.h Util/Util.h $(lib_antlr)
+	$(CC) $(CFLAGS) $(testdir)kvstore_test.cpp $(inc) -o $(objdir)kvstore_test.o $(openmp)
 
 #objects in scripts/ end
 

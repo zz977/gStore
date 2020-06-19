@@ -1096,7 +1096,6 @@ KVstore::open_entity2id(int _mode)
 		cerr << "Invalid open mode in open_entity2id, mode = " << _mode << endl;
 		return false;
 	}
-
 	return this->open(this->entity2id, KVstore::s_entity2id, _mode, buffer_size);
 }
 
@@ -1122,7 +1121,8 @@ KVstore::subIDByEntity(string _entity0)
 	//_entity will not be released befor ethis function ends
 	//so _entity.c_str() is a valid const char*
 	//this->load_trie();
-	string _entity = trie->Compress(_entity0);
+	//string _entity = trie->Compress(_entity0);
+	string _entity = _entity0;
 	//return this->entity2id->remove(_entity.c_str(), _entity.length());
 	return this->removeKey(this->entity2id, _entity.c_str(), _entity.length());
 }
@@ -1131,7 +1131,8 @@ TYPE_ENTITY_LITERAL_ID
 KVstore::getIDByEntity(string _entity0) const  
 {
 	//this->load_trie();
-	string _entity = trie->Compress(_entity0);
+	//string _entity = trie->Compress(_entity0);
+	string _entity = _entity0;
 	return this->getIDByStr(this->entity2id, _entity.c_str(), _entity.length());
 }
 
@@ -1142,7 +1143,8 @@ KVstore::setIDByEntity(string _entity0, TYPE_ENTITY_LITERAL_ID _id)
 	//int len = _entity.length() + 1;
 
 	//this->load_trie();
-	string _entity = trie->Compress(_entity0);
+	//string _entity = trie->Compress(_entity0);
+	string _entity = _entity0;
 	int len = _entity.length();
 	char* str = new char[len];
 
@@ -1239,8 +1241,8 @@ KVstore::setEntityByID(TYPE_ENTITY_LITERAL_ID _id, string _entity0)
 {
 	//return this->addValueByKey(this->id2entity, _id, _entity.c_str(), _entity.length());
 	//int len = _entity.length() + 1;
-	string _entity = this->trie->Compress(_entity0);
-
+	//string _entity = this->trie->Compress(_entity0);
+	string _entity = _entity0;
 	int len = _entity.length();
 	char* str = new char[len];
 
